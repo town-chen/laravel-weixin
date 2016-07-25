@@ -19,3 +19,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+// 用户
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->safeEmail,
+        'password' => bcrypt(str_random(10)),
+        'remember_token' => str_random(10),
+    ];
+});
+
+// 课程
+$factory->define(App\Models\Course::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->sentence,
+        'cover_image' => $faker->imageUrl(320, 180),
+        'price' => $faker->numberBetween(3),
+        'teacher_id' => $faker->randomElement(App\Models\User::pluck('id')->toArray()),
+    ];
+});
